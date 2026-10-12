@@ -2,8 +2,14 @@ FROM arm64v8/ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+# ARM64 Ubuntu Ports mirror
+RUN sed -i \
+    's|http://ports.ubuntu.com/ubuntu-ports|http://mirrors.aliyun.com/ubuntu-ports|g' \
+    /etc/apt/sources.list
+
 # System dependencies matching RK3588 baseline (Ubuntu 22.04, gcc 11.4, cmake 3.22)
-RUN apt-get update && apt-get install -y \
+RUN apt-get -o Acquire::Retries=5 update && \
+    apt-get -o Acquire::Retries=5 install -y \
     build-essential cmake gcc g++ \
     libeigen3-dev libyaml-cpp-dev \
     libglfw3-dev libglew-dev \
@@ -15,6 +21,14 @@ RUN apt-get update && apt-get install -y \
     libncurses5-dev \
     libwayland-dev libxrandr-dev \
     libx11-dev libxkbcommon-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Real-robot audio dependencies
+RUN apt-get -o Acquire::Retries=5 update && \
+    apt-get -o Acquire::Retries=5 install -y \
+    libasound2-dev \
+    sox \
+    libopencv-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /workspace
