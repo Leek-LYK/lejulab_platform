@@ -8,8 +8,8 @@
 HumanoidRobotCfg:
   inference_engine: "onnxruntime"
   loop_dt: 0.001
-  # policy_path: "../policy/heft/policy_heft_leek_5w.onnx"
-  policy_path: "../policy/heft/policy0905.onnx"
+  policy_path: "../policy/heft/heft_roban_10w.onnx"
+  # policy_path: "../policy/heft/policy0905.onnx"
 
   motion:
     default_motion: default_stand
@@ -19,6 +19,15 @@ HumanoidRobotCfg:
 
       # - name: sonic_bend_over
       #   file: "../motion_data/sonic_bend_over_deploy.csv"
+      # - name: 蹲__352_a person slowly stands up from a crouched position_heft_50hz
+      #   file: "../motion_data/roban_0921_14条/蹲__352_a person slowly stands up from a crouched position._heft_50hz.csv"
+
+      # - name: 蹲__970_a person in a crouched position with the right arm extended forward rises to an upright position._heft_50hz
+      #   file: "../motion_data/roban_0921_14条/蹲__970_a person in a crouched position with the right arm extended forward rises to an upright position._heft_50hz.csv"
+
+      # - name: 蹲__992_a person crouches downward to reach for a small, light object in the right hand while facing downward._heft_50hz
+      #   file: "../motion_data/roban_0921_14条/蹲__992_a person crouches downward to reach for a small, light object in the right hand while facing downward._heft_50hz.csv"
+
 
       - name: 001_a_person_crosses_arms_and_stands_still_deploy.csv
         file: "../motion_data/roban_key_out_HEFT/001_a_person_crosses_arms_and_stands_still_deploy.csv"
@@ -35,8 +44,8 @@ HumanoidRobotCfg:
       - name: 006_a person jogs forward and then stops_deploy
         file: "../motion_data/roban_key_out_HEFT/006_a person jogs forward and then stops_deploy.csv"
 
-      - name: 008_a person marches in place with high knees_deploy
-        file: "../motion_data/roban_key_out_HEFT/008_a person marches in place with high knees_deploy.csv"
+      # - name: 008_a person marches in place with high knees_deploy
+      #   file: "../motion_data/roban_key_out_HEFT/008_a person marches in place with high knees_deploy.csv"
 
       - name: 010_a person speaks, gesturing with both hands_deploy
         file: "../motion_data/roban_key_out_HEFT/010_a person speaks, gesturing with both hands_deploy.csv"
@@ -79,9 +88,6 @@ HumanoidRobotCfg:
 
       - name: 027_a person stands and holds both hands in front as if carrying a tray_deploy
         file: "../motion_data/roban_key_out_HEFT/027_a person stands and holds both hands in front as if carrying a tray_deploy.csv"
-
-      # - name: 028_a person bends down, picks up an object with both hands, and stands up_deploy
-      #   file: "../motion_data/roban_key_out_HEFT/028_a person bends down, picks up an object with both hands, and stands up_deploy.csv"
       
       - name: 029_a person extends both hands forward as if pushing a door open_deploy
         file: "../motion_data/roban_key_out_HEFT/029_a person extends both hands forward as if pushing a door open_deploy.csv"
@@ -97,7 +103,6 @@ HumanoidRobotCfg:
 
       - name: 034_a person standing in place waves hello with the right hand several times_deploy
         file: "../motion_data/roban_key_out_HEFT/034_a person standing in place waves hello with the right hand several times_deploy.csv"
-
 
       - name: 035_a person walks backward slowly_deploy
         file: "../motion_data/roban_key_out_HEFT/035_a person walks backward slowly_deploy.csv"
@@ -135,8 +140,8 @@ HumanoidRobotCfg:
         file: "../motion_data/220713__jump_002__A021_deploy.csv"
       - name: hiphop_box_step
         file: "../motion_data/main_230414_dance_hiphop_box_step_R_loop_003__A321_deploy.csv"
-      - name: faint_stand_up_stomach
-        file: "../motion_data/faint_stand_up_lying_stomach_R_001__A493_deploy.csv"
+      # - name: faint_stand_up_stomach
+      #   file: "../motion_data/faint_stand_up_lying_stomach_R_001__A493_deploy.csv"
       - name: flip_360
         file: "../motion_data/230324__flip_360_002__A304_deploy.csv"
 
