@@ -1,0 +1,9 @@
+# Download-time artifacts
+*.zip
+*.tmp
+__MACOSX/
+
+# examples/ build artifacts
+examples/**/*.exe
+examples/**/*.o
+examples/**/build/

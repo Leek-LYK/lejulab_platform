@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>lejusdk-vr</name>
+  <version>0.1.0</version>
+  <description>VR control SDK for Leju robots</description>
+
+  <maintainer email="dev@lejurobot.com">Leju Robot</maintainer>
+  <license>Proprietary</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>lejusdk-dds-idl</depend>
+  <depend>lejusdk-topic-pubsub</depend>
+  <depend>lejusdk-dds-rpc</depend>
+  <depend>lejusdk-utils</depend>
+  <depend>eigen</depend>
+
+  <export>
+  </export>
+</package>

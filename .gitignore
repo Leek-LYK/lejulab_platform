@@ -1,0 +1,50 @@
+# =========================
+# Build
+# =========================
+build/
+build_sim/
+build_cross/
+build_cmake/
+
+# =========================
+# Python
+# =========================
+.venv/
+__pycache__/
+*.pyc
+
+# =========================
+# Runtime
+# =========================
+*.log
+core
+core.*
+*.core
+
+# =========================
+# IDE
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# OS
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Temporary
+# =========================
+*.tmp
+*.swp
+
+# Catkin
+.catkin_tools/
+# =========================
+# ARM64 cross compilation
+# =========================
+docker/sysroot/
+docker/lejulab-cross-aarch64.tar.gz
+install_cross/
+deploy_arm64/

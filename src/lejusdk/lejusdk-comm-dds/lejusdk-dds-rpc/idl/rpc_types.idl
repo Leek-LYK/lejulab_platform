@@ -1,0 +1,47 @@
+/**
+ * @file rpc_types.idl
+ * @brief DDS-RPC 基础类型定义
+ *
+ * 定义了 RPC over DDS 所需的基础类型，遵循 OMG DDS-RPC 规范。
+ */
+
+module dds_rpc {
+
+    /**
+     * 样本标识 - 唯一标识一个请求
+     * 由写入者 GUID 和序列号组成
+     */
+    struct SampleIdentity {
+        octet writer_guid[16];      // 128-bit GUID
+        int64 sequence_number;      // 递增序列号
+    };
+
+    /**
+     * 请求头 - 每个请求必须包含
+     */
+    struct RequestHeader {
+        SampleIdentity request_id;  // 请求唯一标识
+        string instance_name;       // 服务实例名称 (可选)
+    };
+
+    /**
+     * 远程异常码
+     */
+    enum RemoteExceptionCode {
+        REMOTE_EX_OK,                    // 成功
+        REMOTE_EX_UNSUPPORTED,           // 不支持的操作
+        REMOTE_EX_INVALID_ARGUMENT,      // 无效参数
+        REMOTE_EX_OUT_OF_RESOURCES,      // 资源不足
+        REMOTE_EX_UNKNOWN_OPERATION,     // 未知操作
+        REMOTE_EX_UNKNOWN_EXCEPTION      // 未知异常
+    };
+
+    /**
+     * 响应头 - 每个响应必须包含
+     */
+    struct ReplyHeader {
+        SampleIdentity related_request_id;  // 关联的请求标识
+        RemoteExceptionCode remote_ex;      // 远程异常码
+    };
+
+};

@@ -1,0 +1,4 @@
+# bc-stark-sdk prebuilt versions (managed by download-lib.sh)
+version: v1.1.9
+aarch64:v1.1.9  (shipped from upstream dist.zip, 2026-04-20)
+x86_64:v1.1.9   (downloaded via download-lib.sh, 2026-04-20)

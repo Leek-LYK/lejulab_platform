@@ -1,0 +1,8 @@
+.vscode
+.calude
+build
+third_party
+# tests
+# examples
+TODO
+CLAUDE.md

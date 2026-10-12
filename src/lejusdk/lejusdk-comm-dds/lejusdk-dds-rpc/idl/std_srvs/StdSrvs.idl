@@ -1,0 +1,79 @@
+/**
+ * @file StdSrvs.idl
+ * @brief 通用服务类型定义
+ *
+ * 定义常用的标准服务请求/响应类型，类似 ROS std_srvs
+ */
+
+#include "rpc_types.idl"
+
+module std_srvs {
+
+    /**
+     * Trigger 服务请求 - 无参数触发
+     */
+    struct TriggerRequest {
+        dds_rpc::RequestHeader header;
+    };
+
+    /**
+     * Trigger 服务响应
+     */
+    struct TriggerReply {
+        dds_rpc::ReplyHeader header;
+        boolean success;        // 操作是否成功
+        string message;         // 状态消息
+    };
+
+    /**
+     * SetBool 服务请求
+     */
+    struct SetBoolRequest {
+        dds_rpc::RequestHeader header;
+        boolean data;           // 布尔值
+    };
+
+    /**
+     * SetBool 服务响应
+     */
+    struct SetBoolReply {
+        dds_rpc::ReplyHeader header;
+        boolean success;
+        string message;
+    };
+
+    /**
+     * SetInt32 服务请求
+     */
+    struct SetInt32Request {
+        dds_rpc::RequestHeader header;
+        int32 data;             // 整数值
+    };
+
+    /**
+     * SetInt32 服务响应
+     */
+    struct SetInt32Reply {
+        dds_rpc::ReplyHeader header;
+        boolean success;
+        string message;
+    };
+
+    /**
+     * SetString 服务请求
+     */
+    struct SetStringRequest {
+        dds_rpc::RequestHeader header;
+        string data;            // 字符串值
+    };
+
+    /**
+     * SetString 服务响应
+     */
+    struct SetStringReply {
+        dds_rpc::ReplyHeader header;
+        boolean success;
+        string message;
+    };
+
+};

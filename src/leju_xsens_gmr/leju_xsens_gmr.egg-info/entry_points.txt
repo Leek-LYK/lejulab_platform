@@ -1,0 +1,2 @@
+[console_scripts]
+leju-xsens-gmr = leju_xsens_gmr.main:main

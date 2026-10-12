@@ -1,0 +1,8 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+find_dependency(CycloneDDS REQUIRED)
+
+include("${CMAKE_CURRENT_LIST_DIR}/dds_rpc-targets.cmake")
+
+check_required_components(dds_rpc)

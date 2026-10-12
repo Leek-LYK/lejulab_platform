@@ -1,0 +1,32 @@
+/**
+ * @file AudioPlayerService.idl
+ * @brief 音频播放服务类型定义
+ *
+ * 定义 audio_player_node 的 RPC 服务接口：按文件名播放音频。
+ */
+
+#include "rpc_types.idl"
+
+module leju {
+module srv {
+
+    /**
+     * PlayAudio 请求 - 播放音频文件
+     */
+    struct PlayAudioRequest {
+        dds_rpc::RequestHeader header;
+        string file_name;     // 裸文件名(相对 AUDIO_FILE_DIR) 或绝对路径
+        int32  volume;        // 音量百分比，100 = 原音量
+    };
+
+    /**
+     * PlayAudio 响应
+     */
+    struct PlayAudioReply {
+        dds_rpc::ReplyHeader header;
+        boolean success;
+        string  message;
+    };
+
+};
+};

@@ -1,0 +1,6 @@
+# Whitelist of packages to sync share directory
+# 只有定义在这里面的包才会同步share目录
+leju-hardware
+leju-joystick
+leju-mujoco-sim
+lejusdk-recorder

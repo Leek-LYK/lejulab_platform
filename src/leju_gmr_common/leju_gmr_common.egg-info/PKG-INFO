@@ -1,0 +1,13 @@
+Metadata-Version: 2.4
+Name: leju-gmr-common
+Version: 0.1.0
+Summary: Device-independent S17 GMR and DDS HEFT support
+Requires-Python: <3.13,>=3.10
+Requires-Dist: numpy>=1.21
+Requires-Dist: scipy>=1.8
+Requires-Dist: mujoco==3.11.0
+Requires-Dist: mink==1.2.0
+Requires-Dist: qpsolvers[daqp]>=4.0
+Requires-Dist: cyclonedds==0.10.2
+Provides-Extra: test
+Requires-Dist: pytest>=7; extra == "test"

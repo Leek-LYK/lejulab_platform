@@ -1,0 +1,120 @@
+/**
+ * @file ControllerService.idl
+ * @brief 控制器服务类型定义
+ *
+ * 定义控制器管理相关的 RPC 服务接口
+ */
+
+#include "rpc_types.idl"
+
+module leju {
+module srv {
+
+    /**
+     * 控制器状态枚举
+     */
+    enum ControllerStateValue {
+        STATE_INACTIVE,    // 未激活
+        STATE_ACTIVE,      // 运行中
+        STATE_ERROR        // 错误
+    };
+
+    /**
+     * SwitchController 请求 - 切换控制器
+     */
+    struct SwitchControllerRequest {
+        dds_rpc::RequestHeader header;
+        string controller_name;       // 目标控制器名称 (e.g., "amp", "mimic")
+    };
+
+    /**
+     * SwitchController 响应
+     */
+    struct SwitchControllerReply {
+        dds_rpc::ReplyHeader header;
+        boolean success;
+        string message;
+        string current_controller;    // 切换后的当前控制器
+    };
+
+    /**
+     * GetControllerState 请求 - 获取控制器原始状态
+     */
+    struct GetControllerStateRequest {
+        dds_rpc::RequestHeader header;
+    };
+
+    /**
+     * GetControllerState 响应
+     */
+    struct GetControllerStateReply {
+        dds_rpc::ReplyHeader header;
+        string current_controller;              // 当前控制器名称
+        int32 arm_mode;                         // 手臂控制模式 (0=KEEP_POSE, 1=AUTO, 2=EXTERNAL)
+        int32 head_mode;                        // 头部控制模式
+        int32 waist_mode;                       // 腰部控制模式
+        boolean controller_transitioning;       // 控制器是否处于切换过渡中
+        sequence<string> available_controllers; // 可用控制器列表
+    };
+
+    /**
+     * GetRuntimeState 请求 - 获取 runtime 原始状态
+     */
+    struct GetRuntimeStateRequest {
+        dds_rpc::RequestHeader header;
+    };
+
+    /**
+     * GetRuntimeState 响应
+     */
+    struct GetRuntimeStateReply {
+        dds_rpc::ReplyHeader header;
+        boolean data_ready;         // 数据流是否 ready
+        int32 hardware_state;       // 硬件状态
+        int32 lifecycle_state;      // 生命周期状态
+    };
+
+    /**
+     * GetMotionState 请求 - 获取 motion 原始状态
+     */
+    struct GetMotionStateRequest {
+        dds_rpc::RequestHeader header;
+    };
+
+    /**
+     * GetMotionState 响应
+     */
+    struct GetMotionStateReply {
+        dds_rpc::ReplyHeader header;
+        boolean supported;                    // 当前控制器是否支持 motion
+        boolean motion_playing;               // 当前是否正在播放 motion
+        string current_motion_name;           // 当前 motion 名称
+        sequence<string> available_motion_names; // 可用 motion 列表
+    };
+
+    /**
+     * ListControllers 请求 - 列出所有控制器
+     */
+    struct ListControllersRequest {
+        dds_rpc::RequestHeader header;
+    };
+
+    /**
+     * 控制器信息
+     */
+    struct ControllerInfo {
+        string name;                  // 控制器名称
+        ControllerStateValue state;   // 控制器状态
+        string type;                  // 控制器类型
+    };
+
+    /**
+     * ListControllers 响应
+     */
+    struct ListControllersReply {
+        dds_rpc::ReplyHeader header;
+        sequence<ControllerInfo> controllers;  // 控制器列表
+    };
+
+};
+};

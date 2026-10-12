@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>lejusdk-dds-rpc</name>
+  <version>1.0.0</version>
+  <description>DDS-RPC Framework - Request/Reply pattern over CycloneDDS</description>
+
+  <maintainer email="dev@lejurobot.com">Leju Robotics</maintainer>
+  <license>MIT</license>
+
+  <url type="repository">https://www.lejuhub.com/highlydynamic/lejulab</url>
+  <author>Leju Robotics Team</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- No ROS message dependencies - this is a pure DDS library -->
+  <!-- catkin is only used for build system integration -->
+
+</package>

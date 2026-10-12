@@ -1,0 +1,56 @@
+lejuclaw:
+  # 基本PD与限流
+  kp: 10.0                               # 比例增益系数，用于位置控制响应速度
+  kd: 2.2                                # 微分增益系数，用于阻尼控制
+  alpha: 0.2                             # 低通滤波器系数，用于信号平滑
+  max_current: 2.5                       # 最大电流限制，防止过载保护，单位 A
+  min_error_percent: 1.5                 # 最小误差阈值，基于行程百分比，用于判断到位精度，单位 %
+  dt: 0.005                              # 控制周期，控制循环时间间隔，单位 s (对应200Hz)
+
+  # 反冲与限位范围
+  impact_current: 3.0                    # 冲击电流阈值，单位 A
+  impact_duration_ms: 200                # 冲击持续时间，单位 ms
+  impact_interval_ms: 800                # 冲击间隔时间，单位 ms
+  limit_range_percent: 5.0               # 限位范围百分比，包括VR与非VR模式，在行程两端此范围内才执行反冲，单位 %
+  stuck_detection_delay_ms: 50.0         # 卡死检测延迟时间，单位 ms
+  stuck_detection_time_ms: 50.0          # 卡死检测持续时间，单位 ms
+  stuck_position_threshold: 0.002         # 卡死位置阈值，小于此值认为卡死，单位 rad
+
+  # 稳定检测（判断夹到物或稳定）
+  stable_position_threshold: 0.005       # 稳定位置阈值，单位 rad
+  stable_velocity_threshold: 0.1         # 稳定速度阈值，单位 rad/s
+  stable_detection_time_ms: 50           # 稳定检测时间，单位 ms
+
+  # KP/KD 动态调整参数（目标位置附近精度控制）
+  precision_range_percent: 6.0           # 精度调整范围百分比，在目标位置此范围内调整kp/kd，单位 %
+  precision_kp_scale: 0.13               # 精度范围内KP缩放系数（减小KP以减少超调）
+  precision_kd_scale: 1.3                # 精度范围内KD缩放系数（增大KD以增强阻尼）
+
+  # VR控制相关
+  vr_control_timeout_ms: 60              # VR模式下的超时时间，单位 ms
+  vr_stuck_detection_cycles: 50          # VR模式下卡死检测需要的周期个数，每个周期时长为cfg_DT，超过次数后不动，判断为卡死
+  vr_stuck_position_threshold: 0.01      # VR模式下卡死位置阈值，连续VR_STUCK_DETECTION_CYCLES个周期内，位置变化都小于该弧度，认为夹爪卡死，单位 rad
+  vr_target_position_threshold: 0.5      # VR模式下目标位置差值阈值，当目标位置与当前位置差值大于此值时才进行卡死检测，单位 rad
+
+  # 寻零/限位搜索
+  zero_control_kp: 0.0                   # 零点控制比例增益，零点寻找时使用
+  zero_control_kd: 1.0                   # 零点控制微分增益，零点寻找时使用
+  zero_control_alpha: 1.5                # 零点控制低通滤波系数
+  zero_control_max_current: 1.8          # 零点控制最大电流限制，单位 A，仅作最大电流限制保护使用
+  stall_current_threshold: 1.5           # 堵转电流阈值，超过阈值后认为到达限位，单位 A
+  stall_velocity_threshold: 0.10         # 堵转速度阈值，小于阈值后认为到达限位，单位 rad/s
+  zero_control_dt: 0.005                 # 零点控制周期，单位 s (对应200Hz)
+  zero_find_timeout_ms: 20000            # 零点寻找超时时间，单位 ms
+  zero_wait_ms: 500                      # 零点等待时间，单位 ms
+  open_limit_adjustment: -10.0           # 开限位调整值，百分比，单位 %（正数往行程外扩展，负数往行程内收缩）
+  close_limit_adjustment: 0.0            # 关限位调整值，百分比，单位 %（正数往行程外扩展，负数往行程内收缩）
+  target_velocity: 5.0                   # 限位寻找目标速度，单位 rad/s
+  open_position_change_threshold: 0.03   # 开爪位置变化阈值，开爪过程位置变化大于该值，明确有开爪动作，才可进行高电流冲关爪，避免错方向，单位 rad
+  close_stuck_current_threshold: 1.0     # 关爪卡死检测电流阈值，超过阈值后可判断为卡死状态，单位 A
+  close_stuck_detection_threshold: 1.0   # 关爪卡死检测位置阈值，自开始关爪动作开始，小于阈值可判断为卡死状态，单位 rad
+  close_startup_delay_ms: 1000           # 关爪启动卡死检测延时，避免电机启动初期运动位置过小的误判，单位 ms
+  close_impact_current: 3.0              # 关爪冲击电流，单位 A
+  close_impact_duration_ms: 200          # 关爪冲击持续时间，单位 ms
+  close_impact_interval_ms: 800          # 关爪冲击间隔时间，单位 ms
+  close_max_attempts: 10                 # 关爪最大尝试次数，达到次数后认为到达关爪限位
+

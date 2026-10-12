@@ -1,0 +1,238 @@
+# HEFT student 跟踪部署配置（CSV / planner / Pico live 共用）
+# - controller_manager 里 heft / heft_planner / heft_pico 都指向本文件
+# - 参考源模式由控制器名决定：heft→csv，heft_planner→flow，heft_pico→live
+# - joint_default_pos 全 0（绝对关节目标：q = direction * action * scale）
+# - action_scale 来自训练 profile（leg/waist 0.5，arm 1.0）
+# - PD 对齐 motion-tracking-heft/.../roban.py ROBAN_ACTUATOR_*（按关节名）
+
+HumanoidRobotCfg:
+  inference_engine: "onnxruntime"
+  loop_dt: 0.001
+  # policy_path: "../policy/heft/policy_heft_leek_5w.onnx"
+  policy_path: "../policy/heft/policy0905.onnx"
+
+  motion:
+    default_motion: default_stand
+    motions:
+      - name: default_stand
+        file: "../motion_data/roban_default_stand_10s_deploy.csv"
+
+      # - name: sonic_bend_over
+      #   file: "../motion_data/sonic_bend_over_deploy.csv"
+
+      - name: 001_a_person_crosses_arms_and_stands_still_deploy.csv
+        file: "../motion_data/roban_key_out_HEFT/001_a_person_crosses_arms_and_stands_still_deploy.csv"
+      
+      - name: 003_a_person_is_standing at a place and making various hand gesture_deploy
+        file: "../motion_data/roban_key_out_HEFT/003_a person is standing at a place and making various hand gesture_deploy.csv"
+      
+      - name: 004_a person is walking forward slowly_deploy
+        file: "../motion_data/roban_key_out_HEFT/004_a person is walking forward slowly_deploy.csv"
+
+      - name: 005_a person is walking forward slowly in short strides while lifting a crate with both hands in front_deploy
+        file: "../motion_data/roban_key_out_HEFT/005_a person is walking forward slowly in short strides while lifting a crate with both hands in front_deploy.csv"
+
+      - name: 006_a person jogs forward and then stops_deploy
+        file: "../motion_data/roban_key_out_HEFT/006_a person jogs forward and then stops_deploy.csv"
+
+      - name: 008_a person marches in place with high knees_deploy
+        file: "../motion_data/roban_key_out_HEFT/008_a person marches in place with high knees_deploy.csv"
+
+      - name: 010_a person speaks, gesturing with both hands_deploy
+        file: "../motion_data/roban_key_out_HEFT/010_a person speaks, gesturing with both hands_deploy.csv"
+
+      - name: 012_a person stands up from the chair, then stretches the arms_deploy
+        file: "../motion_data/roban_key_out_HEFT/012_a person stands up from the chair, then stretches the arms_deploy.csv"
+
+      - name: 013_a person walks forward, turns around, and walks back_deploy
+        file: "../motion_data/roban_key_out_HEFT/013_a person walks forward, turns around, and walks back_deploy.csv"
+
+      - name: 014_a person waves with the left hand_deploy
+        file: "../motion_data/roban_key_out_HEFT/014_a person waves with the left hand_deploy.csv"
+
+      - name: 015_a person waves with the right hand_deploy
+        file: "../motion_data/roban_key_out_HEFT/015_a person waves with the right hand_deploy.csv"
+
+      - name: 016_a person stands, then sits on a chair and drinks with their left hand_deploy
+        file: "../motion_data/roban_key_out_HEFT/016_a person stands, then sits on a chair and drinks with their left hand_deploy.csv"
+
+      - name: 017_a person waves with the right hand, then bows politely_deploy
+        file: "../motion_data/roban_key_out_HEFT/017_a person waves with the right hand, then bows politely_deploy.csv"
+
+      - name: 018_a person walks with both hands on hips_deploy
+        file: "../motion_data/roban_key_out_HEFT/018_a person walks with both hands on hips_deploy.csv"
+
+      - name: 019_a person jumps in place lightly_deploy
+        file: "../motion_data/roban_key_out_HEFT/019_a person jumps in place lightly_deploy.csv"
+
+      - name: 020_a person jumps forward lightly, taking two steps_deploy
+        file: "../motion_data/roban_key_out_HEFT/020_a person jumps forward lightly, taking two steps_deploy.csv"
+      
+      - name: 024_a person rolls both shoulders while standing in place_deploy
+        file: "../motion_data/roban_key_out_HEFT/024_a person rolls both shoulders while standing in place_deploy.csv"
+
+      - name: 025_a person nods the head as if saying yes_deploy
+        file: "../motion_data/roban_key_out_HEFT/025_a person nods the head as if saying yes_deploy.csv"
+
+      - name: 026_a person shakes the head as if saying no_deploy
+        file: "../motion_data/roban_key_out_HEFT/026_a person shakes the head as if saying no_deploy.csv"
+
+      - name: 027_a person stands and holds both hands in front as if carrying a tray_deploy
+        file: "../motion_data/roban_key_out_HEFT/027_a person stands and holds both hands in front as if carrying a tray_deploy.csv"
+
+      # - name: 028_a person bends down, picks up an object with both hands, and stands up_deploy
+      #   file: "../motion_data/roban_key_out_HEFT/028_a person bends down, picks up an object with both hands, and stands up_deploy.csv"
+      
+      - name: 029_a person extends both hands forward as if pushing a door open_deploy
+        file: "../motion_data/roban_key_out_HEFT/029_a person extends both hands forward as if pushing a door open_deploy.csv"
+      
+      - name: 030_a person holds a box with both hands in front of the chest while standing_deploy
+        file: "../motion_data/roban_key_out_HEFT/030_a person holds a box with both hands in front of the chest while standing_deploy.csv"
+
+      - name: 032_a person walks slowly_deploy
+        file: "../motion_data/roban_key_out_HEFT/032_a person walks slowly_deploy.csv"
+
+      - name: 033_a person walks forward at a slow and careful pace while staying in place_deploy
+        file: "../motion_data/roban_key_out_HEFT/033_a person walks forward at a slow and careful pace while staying in place_deploy.csv"
+
+      - name: 034_a person standing in place waves hello with the right hand several times_deploy
+        file: "../motion_data/roban_key_out_HEFT/034_a person standing in place waves hello with the right hand several times_deploy.csv"
+
+
+      - name: 035_a person walks backward slowly_deploy
+        file: "../motion_data/roban_key_out_HEFT/035_a person walks backward slowly_deploy.csv"
+
+      - name: 036_a person sidesteps to the left_deploy
+        file: "../motion_data/roban_key_out_HEFT/036_a person sidesteps to the left_deploy.csv"
+
+      - name: 037_a person sidesteps to the right_deploy
+        file: "../motion_data/roban_key_out_HEFT/037_a person sidesteps to the right_deploy.csv"
+
+      - name: 038_a person turns around to the left while standing in place_deploy
+        file: "../motion_data/roban_key_out_HEFT/038_a person turns around to the left while standing in place_deploy.csv"
+
+      - name: 039_a person is walking forward at a normal pace_deploy
+        file: "../motion_data/roban_key_out_HEFT/039_a person is walking forward at a normal pace_deploy.csv"
+      
+      - name: 040_a person stands still with both hands on hips_deploy
+        file: "../motion_data/roban_key_out_HEFT/040_a person stands still with both hands on hips_deploy.csv"
+      
+      - name: 042_a person points forward with the right hand_deploy
+        file: "../motion_data/roban_key_out_HEFT/042_a person points forward with the right hand_deploy.csv"
+
+      - name: 043_a person salutes with the right hand_deploy
+        file: "../motion_data/roban_key_out_HEFT/043_a person salutes with the right hand_deploy.csv"
+
+      
+
+      - name: walk_forward_stop
+        file: "../motion_data/main_220728_walk_forward_stop_002__A044_deploy.csv"
+
+      - name: jog_ff
+        file: "../motion_data/main_221010_jog_ff_start_180_R_001__A045_deploy.csv"
+
+      - name: jump_002
+        file: "../motion_data/220713__jump_002__A021_deploy.csv"
+      - name: hiphop_box_step
+        file: "../motion_data/main_230414_dance_hiphop_box_step_R_loop_003__A321_deploy.csv"
+      - name: faint_stand_up_stomach
+        file: "../motion_data/faint_stand_up_lying_stomach_R_001__A493_deploy.csv"
+      - name: flip_360
+        file: "../motion_data/230324__flip_360_002__A304_deploy.csv"
+
+  env:
+    policy_dt: 0.02
+
+    heft:
+      future_steps: [0, 1, 2, 3, 4, 5, 6, 7, 8, -1, -2, -4, -8]
+      history_steps: [0, 1, 2, 3, 4, 8, 12, 16, 20]
+      prev_action_steps: 8
+      boot_indicator_max: 25.0
+      action_clip: 10.0
+      action_alpha: 0.9
+      output_name: "action"
+      expected_obs_dim: 1313
+
+      # live 参数仅 heft_pico 使用；csv / planner 忽略
+      live:
+        topic: "/rt/pico/heft_reference"
+        robot_version: "roban_s17"
+        schema_version: 1
+        # 游标延迟 = 最大 future 偏移 8 * 20ms = 0.16s
+        cursor_delay: 0.16
+        fresh_timeout: 0.15
+        hold_timeout: 0.5
+        buffer_capacity: 2.0
+        fallback_controller: "amp"
+        record_csv_dir: "../motion_data/pico_recording"
+
+      # planner 参数仅 heft_planner 使用；csv / live 忽略
+      planner:
+        onnx_path: "../policy/heft/best.onnx"
+        exec_steps: 2
+        command_offset: 150
+        ode_steps: 5
+        t_start: 0.7
+        control_hz: 50.0
+        # <0 则按 meta 自动：3588 (K=8, root_dim=0) → 10，否则 20
+        horizon_frames: -1
+        intra_op_threads: 2
+
+    robot:
+      residual_action: false
+      enable_arm_controller: false
+      enable_waist_controller: false
+
+      joint_names:
+        ["waist_yaw_joint",
+         "leg_l1_joint", "leg_l2_joint", "leg_l3_joint", "leg_l4_joint", "leg_l5_joint", "leg_l6_joint",
+         "leg_r1_joint", "leg_r2_joint", "leg_r3_joint", "leg_r4_joint", "leg_r5_joint", "leg_r6_joint",
+         "zarm_l1_joint", "zarm_l2_joint", "zarm_l3_joint", "zarm_l4_joint",
+         "zarm_r1_joint", "zarm_r2_joint", "zarm_r3_joint", "zarm_r4_joint"]
+
+      joint_direction:
+        [-1.,
+         1., 1., 1., 1., 1., 1.,
+         1., 1., 1., 1., 1., 1.,
+         1., 1., 1., 1.,
+         1., 1., 1., 1.]
+
+      joint_default_pos:
+        [0.,
+         0., 0., 0., 0., 0., 0.,
+         0., 0., 0., 0., 0., 0.,
+         0., 0., 0., 0.,
+         0., 0., 0., 0.]
+
+      joint_torque_limit:
+        [80.,
+         150., 150., 70., 150., 74., 74.,
+         150., 150., 70., 150., 74., 74.,
+         14.1, 37., 37., 37.,
+         14.1, 37., 37., 37.]
+
+      actuator_kp:
+        [40.1792,
+         90.1792, 150.0984, 40.1792, 150.0984, 34.2506, 34.2506,
+         90.1792, 150.0984, 40.1792, 150.0984, 34.2506, 34.2506,
+         14.2506, 14.2506, 14.2506, 14.2506,
+         14.2506, 14.2506, 14.2506, 14.2506]
+      actuator_kd:
+        [3.5579,
+         3.5579, 8.3088, 3.5579, 8.3088, 2.9072, 2.9072,
+         3.5579, 8.3088, 3.5579, 8.3088, 2.9072, 2.9072,
+         1.9072, 1.9072, 1.9072, 1.9072,
+         1.9072, 1.9072, 1.9072, 1.9072]
+      actuator_control_mode:
+        [0,
+         0, 0, 0, 0, 0, 0,
+         0, 0, 0, 0, 0, 0,
+         0, 0, 0, 0,
+         0, 0, 0, 0]
+
+      action_scale:
+        [0.5,
+         0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+         0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+         1.0, 1.0, 1.0, 1.0,
+         1.0, 1.0, 1.0, 1.0]

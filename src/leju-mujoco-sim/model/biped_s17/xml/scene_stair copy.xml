@@ -1,0 +1,260 @@
+<mujoco model="kuavo scene">
+  <include file="biped_s17.xml"/>
+
+  <statistic center="4 0 1.2" extent="8"/>
+
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="-60" elevation="-5"/>
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3"
+      markrgb="0.8 0.8 0.8" width="300" height="300"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+    <!-- <hfield name="perlin_hfield" size="1.0 0.75 0.2 0.2" file="../hfield_image/height_field.png" />
+    <hfield name="image_hfield" size="1.0 1.0 0.02 0.1" file="../hfield_image/kuavo_hfield.png" /> -->
+  </asset>
+
+  <worldbody>
+    <light pos="0 0 3.5" dir="0 0 -1" directional="true"/>
+    <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
+
+    <!-- 6 stairs along +y, +x: tread=0.28, width=2.0, 15 steps + 2m landing -->
+    <!-- 6 narrow stairs mirrored to -x: same y/height, width=1.0 -->
+    <!-- stair 1: riser=0.05 m, y=-6.25 -->
+    <geom name="stair_005_s00" pos="1.3 -6.25 0.025" type="box" size="0.14 1 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_005_s01" pos="1.58 -6.25 0.075" type="box" size="0.14 1 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_005_s02" pos="1.86 -6.25 0.125" type="box" size="0.14 1 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_005_s03" pos="2.14 -6.25 0.175" type="box" size="0.14 1 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_005_s04" pos="2.42 -6.25 0.225" type="box" size="0.14 1 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_005_s05" pos="2.7 -6.25 0.275" type="box" size="0.14 1 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_005_s06" pos="2.98 -6.25 0.325" type="box" size="0.14 1 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_005_s07" pos="3.26 -6.25 0.375" type="box" size="0.14 1 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_005_s08" pos="3.54 -6.25 0.425" type="box" size="0.14 1 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_005_s09" pos="3.82 -6.25 0.475" type="box" size="0.14 1 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_005_s10" pos="4.1 -6.25 0.525" type="box" size="0.14 1 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_005_s11" pos="4.38 -6.25 0.575" type="box" size="0.14 1 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_005_s12" pos="4.66 -6.25 0.625" type="box" size="0.14 1 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_005_s13" pos="4.94 -6.25 0.675" type="box" size="0.14 1 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_005_s14" pos="5.22 -6.25 0.725" type="box" size="0.14 1 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_005_landing" pos="6.36 -6.25 0.4" type="box" size="1 1 0.4" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <!-- stair 2: riser=0.08 m, y=-3.75 -->
+    <geom name="stair_008_s00" pos="1.3 -3.75 0.04" type="box" size="0.14 1 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_008_s01" pos="1.58 -3.75 0.12" type="box" size="0.14 1 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_008_s02" pos="1.86 -3.75 0.2" type="box" size="0.14 1 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_008_s03" pos="2.14 -3.75 0.28" type="box" size="0.14 1 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_008_s04" pos="2.42 -3.75 0.36" type="box" size="0.14 1 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_008_s05" pos="2.7 -3.75 0.44" type="box" size="0.14 1 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_008_s06" pos="2.98 -3.75 0.52" type="box" size="0.14 1 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_008_s07" pos="3.26 -3.75 0.6" type="box" size="0.14 1 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_008_s08" pos="3.54 -3.75 0.68" type="box" size="0.14 1 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_008_s09" pos="3.82 -3.75 0.76" type="box" size="0.14 1 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_008_s10" pos="4.1 -3.75 0.84" type="box" size="0.14 1 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_008_s11" pos="4.38 -3.75 0.92" type="box" size="0.14 1 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_008_s12" pos="4.66 -3.75 1" type="box" size="0.14 1 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_008_s13" pos="4.94 -3.75 1.08" type="box" size="0.14 1 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_008_s14" pos="5.22 -3.75 1.16" type="box" size="0.14 1 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_008_landing" pos="6.36 -3.75 0.64" type="box" size="1 1 0.64" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <!-- stair 3: riser=0.1 m, y=-1.25 -->
+    <geom name="stair_010_s00" pos="1.3 -1.25 0.05" type="box" size="0.14 1 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_010_s01" pos="1.58 -1.25 0.15" type="box" size="0.14 1 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_010_s02" pos="1.86 -1.25 0.25" type="box" size="0.14 1 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_010_s03" pos="2.14 -1.25 0.35" type="box" size="0.14 1 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_010_s04" pos="2.42 -1.25 0.45" type="box" size="0.14 1 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_010_s05" pos="2.7 -1.25 0.55" type="box" size="0.14 1 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_010_s06" pos="2.98 -1.25 0.65" type="box" size="0.14 1 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_010_s07" pos="3.26 -1.25 0.75" type="box" size="0.14 1 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_010_s08" pos="3.54 -1.25 0.85" type="box" size="0.14 1 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_010_s09" pos="3.82 -1.25 0.95" type="box" size="0.14 1 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_010_s10" pos="4.1 -1.25 1.05" type="box" size="0.14 1 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_010_s11" pos="4.38 -1.25 1.15" type="box" size="0.14 1 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_010_s12" pos="4.66 -1.25 1.25" type="box" size="0.14 1 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_010_s13" pos="4.94 -1.25 1.35" type="box" size="0.14 1 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_010_s14" pos="5.22 -1.25 1.45" type="box" size="0.14 1 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_010_landing" pos="6.36 -1.25 0.8" type="box" size="1 1 0.8" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <!-- stair 4: riser=0.12 m, y=1.25 -->
+    <geom name="stair_012_s00" pos="1.3 1.25 0.06" type="box" size="0.14 1 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_012_s01" pos="1.58 1.25 0.18" type="box" size="0.14 1 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_012_s02" pos="1.86 1.25 0.3" type="box" size="0.14 1 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_012_s03" pos="2.14 1.25 0.42" type="box" size="0.14 1 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_012_s04" pos="2.42 1.25 0.54" type="box" size="0.14 1 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_012_s05" pos="2.7 1.25 0.66" type="box" size="0.14 1 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_012_s06" pos="2.98 1.25 0.78" type="box" size="0.14 1 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_012_s07" pos="3.26 1.25 0.9" type="box" size="0.14 1 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_012_s08" pos="3.54 1.25 1.02" type="box" size="0.14 1 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_012_s09" pos="3.82 1.25 1.14" type="box" size="0.14 1 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_012_s10" pos="4.1 1.25 1.26" type="box" size="0.14 1 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_012_s11" pos="4.38 1.25 1.38" type="box" size="0.14 1 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_012_s12" pos="4.66 1.25 1.5" type="box" size="0.14 1 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_012_s13" pos="4.94 1.25 1.62" type="box" size="0.14 1 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_012_s14" pos="5.22 1.25 1.74" type="box" size="0.14 1 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_012_landing" pos="6.36 1.25 0.96" type="box" size="1 1 0.96" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <!-- stair 5: riser=0.15 m, y=3.75 -->
+    <geom name="stair_015_s00" pos="1.3 3.75 0.075" type="box" size="0.14 1 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_015_s01" pos="1.58 3.75 0.225" type="box" size="0.14 1 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_015_s02" pos="1.86 3.75 0.375" type="box" size="0.14 1 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_015_s03" pos="2.14 3.75 0.525" type="box" size="0.14 1 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_015_s04" pos="2.42 3.75 0.675" type="box" size="0.14 1 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_015_s05" pos="2.7 3.75 0.825" type="box" size="0.14 1 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_015_s06" pos="2.98 3.75 0.975" type="box" size="0.14 1 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_015_s07" pos="3.26 3.75 1.125" type="box" size="0.14 1 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_015_s08" pos="3.54 3.75 1.275" type="box" size="0.14 1 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_015_s09" pos="3.82 3.75 1.425" type="box" size="0.14 1 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_015_s10" pos="4.1 3.75 1.575" type="box" size="0.14 1 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_015_s11" pos="4.38 3.75 1.725" type="box" size="0.14 1 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_015_s12" pos="4.66 3.75 1.875" type="box" size="0.14 1 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_015_s13" pos="4.94 3.75 2.025" type="box" size="0.14 1 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_015_s14" pos="5.22 3.75 2.175" type="box" size="0.14 1 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_015_landing" pos="6.36 3.75 1.2" type="box" size="1 1 1.2" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <!-- stair 6: riser=0.18 m, y=6.25 -->
+    <geom name="stair_018_s00" pos="1.3 6.25 0.09" type="box" size="0.14 1 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_018_s01" pos="1.58 6.25 0.27" type="box" size="0.14 1 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_018_s02" pos="1.86 6.25 0.45" type="box" size="0.14 1 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_018_s03" pos="2.14 6.25 0.63" type="box" size="0.14 1 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_018_s04" pos="2.42 6.25 0.81" type="box" size="0.14 1 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_018_s05" pos="2.7 6.25 0.99" type="box" size="0.14 1 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_018_s06" pos="2.98 6.25 1.17" type="box" size="0.14 1 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_018_s07" pos="3.26 6.25 1.35" type="box" size="0.14 1 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_018_s08" pos="3.54 6.25 1.53" type="box" size="0.14 1 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_018_s09" pos="3.82 6.25 1.71" type="box" size="0.14 1 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_018_s10" pos="4.1 6.25 1.89" type="box" size="0.14 1 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_018_s11" pos="4.38 6.25 2.07" type="box" size="0.14 1 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_018_s12" pos="4.66 6.25 2.25" type="box" size="0.14 1 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_018_s13" pos="4.94 6.25 2.43" type="box" size="0.14 1 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_018_s14" pos="5.22 6.25 2.61" type="box" size="0.14 1 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_018_landing" pos="6.36 6.25 1.44" type="box" size="1 1 1.44" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+
+    <!-- narrow stair 1: riser=0.05 m, y=-6.25, width=1.0 -->
+    <geom name="stair_n005_s00" pos="-1.3 -6.25 0.025" type="box" size="0.14 0.5 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_n005_s01" pos="-1.58 -6.25 0.075" type="box" size="0.14 0.5 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_n005_s02" pos="-1.86 -6.25 0.125" type="box" size="0.14 0.5 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_n005_s03" pos="-2.14 -6.25 0.175" type="box" size="0.14 0.5 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_n005_s04" pos="-2.42 -6.25 0.225" type="box" size="0.14 0.5 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_n005_s05" pos="-2.7 -6.25 0.275" type="box" size="0.14 0.5 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_n005_s06" pos="-2.98 -6.25 0.325" type="box" size="0.14 0.5 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_n005_s07" pos="-3.26 -6.25 0.375" type="box" size="0.14 0.5 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_n005_s08" pos="-3.54 -6.25 0.425" type="box" size="0.14 0.5 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_n005_s09" pos="-3.82 -6.25 0.475" type="box" size="0.14 0.5 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_n005_s10" pos="-4.1 -6.25 0.525" type="box" size="0.14 0.5 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_n005_s11" pos="-4.38 -6.25 0.575" type="box" size="0.14 0.5 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_n005_s12" pos="-4.66 -6.25 0.625" type="box" size="0.14 0.5 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_n005_s13" pos="-4.94 -6.25 0.675" type="box" size="0.14 0.5 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_n005_s14" pos="-5.22 -6.25 0.725" type="box" size="0.14 0.5 0.025" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <geom name="stair_n005_landing" pos="-6.36 -6.25 0.4" type="box" size="1 0.5 0.4" quat="1 0 0 0" rgba="0.35 0.55 0.85 1" />
+    <!-- narrow stair 2: riser=0.08 m, y=-3.75, width=1.0 -->
+    <geom name="stair_n008_s00" pos="-1.3 -3.75 0.04" type="box" size="0.14 0.5 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_n008_s01" pos="-1.58 -3.75 0.12" type="box" size="0.14 0.5 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_n008_s02" pos="-1.86 -3.75 0.2" type="box" size="0.14 0.5 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_n008_s03" pos="-2.14 -3.75 0.28" type="box" size="0.14 0.5 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_n008_s04" pos="-2.42 -3.75 0.36" type="box" size="0.14 0.5 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_n008_s05" pos="-2.7 -3.75 0.44" type="box" size="0.14 0.5 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_n008_s06" pos="-2.98 -3.75 0.52" type="box" size="0.14 0.5 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_n008_s07" pos="-3.26 -3.75 0.6" type="box" size="0.14 0.5 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_n008_s08" pos="-3.54 -3.75 0.68" type="box" size="0.14 0.5 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_n008_s09" pos="-3.82 -3.75 0.76" type="box" size="0.14 0.5 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_n008_s10" pos="-4.1 -3.75 0.84" type="box" size="0.14 0.5 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_n008_s11" pos="-4.38 -3.75 0.92" type="box" size="0.14 0.5 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_n008_s12" pos="-4.66 -3.75 1" type="box" size="0.14 0.5 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_n008_s13" pos="-4.94 -3.75 1.08" type="box" size="0.14 0.5 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_n008_s14" pos="-5.22 -3.75 1.16" type="box" size="0.14 0.5 0.04" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <geom name="stair_n008_landing" pos="-6.36 -3.75 0.64" type="box" size="1 0.5 0.64" quat="1 0 0 0" rgba="0.30 0.75 0.75 1" />
+    <!-- narrow stair 3: riser=0.1 m, y=-1.25, width=1.0 -->
+    <geom name="stair_n010_s00" pos="-1.3 -1.25 0.05" type="box" size="0.14 0.5 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_n010_s01" pos="-1.58 -1.25 0.15" type="box" size="0.14 0.5 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_n010_s02" pos="-1.86 -1.25 0.25" type="box" size="0.14 0.5 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_n010_s03" pos="-2.14 -1.25 0.35" type="box" size="0.14 0.5 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_n010_s04" pos="-2.42 -1.25 0.45" type="box" size="0.14 0.5 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_n010_s05" pos="-2.7 -1.25 0.55" type="box" size="0.14 0.5 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_n010_s06" pos="-2.98 -1.25 0.65" type="box" size="0.14 0.5 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_n010_s07" pos="-3.26 -1.25 0.75" type="box" size="0.14 0.5 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_n010_s08" pos="-3.54 -1.25 0.85" type="box" size="0.14 0.5 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_n010_s09" pos="-3.82 -1.25 0.95" type="box" size="0.14 0.5 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_n010_s10" pos="-4.1 -1.25 1.05" type="box" size="0.14 0.5 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_n010_s11" pos="-4.38 -1.25 1.15" type="box" size="0.14 0.5 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_n010_s12" pos="-4.66 -1.25 1.25" type="box" size="0.14 0.5 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_n010_s13" pos="-4.94 -1.25 1.35" type="box" size="0.14 0.5 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_n010_s14" pos="-5.22 -1.25 1.45" type="box" size="0.14 0.5 0.05" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <geom name="stair_n010_landing" pos="-6.36 -1.25 0.8" type="box" size="1 0.5 0.8" quat="1 0 0 0" rgba="0.35 0.75 0.40 1" />
+    <!-- narrow stair 4: riser=0.12 m, y=1.25, width=1.0 -->
+    <geom name="stair_n012_s00" pos="-1.3 1.25 0.06" type="box" size="0.14 0.5 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_n012_s01" pos="-1.58 1.25 0.18" type="box" size="0.14 0.5 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_n012_s02" pos="-1.86 1.25 0.3" type="box" size="0.14 0.5 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_n012_s03" pos="-2.14 1.25 0.42" type="box" size="0.14 0.5 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_n012_s04" pos="-2.42 1.25 0.54" type="box" size="0.14 0.5 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_n012_s05" pos="-2.7 1.25 0.66" type="box" size="0.14 0.5 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_n012_s06" pos="-2.98 1.25 0.78" type="box" size="0.14 0.5 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_n012_s07" pos="-3.26 1.25 0.9" type="box" size="0.14 0.5 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_n012_s08" pos="-3.54 1.25 1.02" type="box" size="0.14 0.5 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_n012_s09" pos="-3.82 1.25 1.14" type="box" size="0.14 0.5 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_n012_s10" pos="-4.1 1.25 1.26" type="box" size="0.14 0.5 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_n012_s11" pos="-4.38 1.25 1.38" type="box" size="0.14 0.5 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_n012_s12" pos="-4.66 1.25 1.5" type="box" size="0.14 0.5 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_n012_s13" pos="-4.94 1.25 1.62" type="box" size="0.14 0.5 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_n012_s14" pos="-5.22 1.25 1.74" type="box" size="0.14 0.5 0.06" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <geom name="stair_n012_landing" pos="-6.36 1.25 0.96" type="box" size="1 0.5 0.96" quat="1 0 0 0" rgba="0.90 0.80 0.30 1" />
+    <!-- narrow stair 5: riser=0.15 m, y=3.75, width=1.0 -->
+    <geom name="stair_n015_s00" pos="-1.3 3.75 0.075" type="box" size="0.14 0.5 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_n015_s01" pos="-1.58 3.75 0.225" type="box" size="0.14 0.5 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_n015_s02" pos="-1.86 3.75 0.375" type="box" size="0.14 0.5 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_n015_s03" pos="-2.14 3.75 0.525" type="box" size="0.14 0.5 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_n015_s04" pos="-2.42 3.75 0.675" type="box" size="0.14 0.5 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_n015_s05" pos="-2.7 3.75 0.825" type="box" size="0.14 0.5 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_n015_s06" pos="-2.98 3.75 0.975" type="box" size="0.14 0.5 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_n015_s07" pos="-3.26 3.75 1.125" type="box" size="0.14 0.5 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_n015_s08" pos="-3.54 3.75 1.275" type="box" size="0.14 0.5 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_n015_s09" pos="-3.82 3.75 1.425" type="box" size="0.14 0.5 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_n015_s10" pos="-4.1 3.75 1.575" type="box" size="0.14 0.5 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_n015_s11" pos="-4.38 3.75 1.725" type="box" size="0.14 0.5 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_n015_s12" pos="-4.66 3.75 1.875" type="box" size="0.14 0.5 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_n015_s13" pos="-4.94 3.75 2.025" type="box" size="0.14 0.5 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_n015_s14" pos="-5.22 3.75 2.175" type="box" size="0.14 0.5 0.075" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <geom name="stair_n015_landing" pos="-6.36 3.75 1.2" type="box" size="1 0.5 1.2" quat="1 0 0 0" rgba="0.95 0.55 0.25 1" />
+    <!-- narrow stair 6: riser=0.18 m, y=6.25, width=1.0 -->
+    <geom name="stair_n018_s00" pos="-1.3 6.25 0.09" type="box" size="0.14 0.5 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_n018_s01" pos="-1.58 6.25 0.27" type="box" size="0.14 0.5 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_n018_s02" pos="-1.86 6.25 0.45" type="box" size="0.14 0.5 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_n018_s03" pos="-2.14 6.25 0.63" type="box" size="0.14 0.5 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_n018_s04" pos="-2.42 6.25 0.81" type="box" size="0.14 0.5 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_n018_s05" pos="-2.7 6.25 0.99" type="box" size="0.14 0.5 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_n018_s06" pos="-2.98 6.25 1.17" type="box" size="0.14 0.5 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_n018_s07" pos="-3.26 6.25 1.35" type="box" size="0.14 0.5 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_n018_s08" pos="-3.54 6.25 1.53" type="box" size="0.14 0.5 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_n018_s09" pos="-3.82 6.25 1.71" type="box" size="0.14 0.5 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_n018_s10" pos="-4.1 6.25 1.89" type="box" size="0.14 0.5 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_n018_s11" pos="-4.38 6.25 2.07" type="box" size="0.14 0.5 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_n018_s12" pos="-4.66 6.25 2.25" type="box" size="0.14 0.5 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_n018_s13" pos="-4.94 6.25 2.43" type="box" size="0.14 0.5 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_n018_s14" pos="-5.22 6.25 2.61" type="box" size="0.14 0.5 0.09" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+    <geom name="stair_n018_landing" pos="-6.36 6.25 1.44" type="box" size="1 0.5 1.44" quat="1 0 0 0" rgba="0.90 0.35 0.30 1" />
+
+  </worldbody>
+
+  <keyframe>
+  
+    <key name="lie0"
+      qpos="
+    0 0 0.77
+    1 0 0 0
+    0 0 0 0 0 0
+    0 0 0 0 0 0
+    0
+    0 0 0 0
+    0 0 0 0
+    "/>
+    
+    <key name="home"
+      qpos="
+    0 0 0.77
+    1 0 0 0
+    0 0 0 0 0 0
+    0 0 0 0 0 0
+    0
+    0 0 0 0
+    0 0 0 0
+    "/>
+  </keyframe>
+
+</mujoco>

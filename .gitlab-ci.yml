@@ -1,0 +1,163 @@
+# ────────────────────────────────────────────────────────────────────
+# 双架构开源发布 CI
+#
+# x86_64：走原 catkin 流程（setup_env / compile / sync_to_lejulab_job / notify），
+#         跑在 kuavo runner 上，源码同步到 x86 开源仓库。
+# aarch64：走纯 CMake 流程（build_aarch64 / release_aarch64 / notify_aarch64），
+#         详见 docs/plans/2026-05-26-aarch64-closed-source-release.md，
+#         跑在 TER30R-ubuntu-shell runner 上，闭源产物同步到 aarch64 开源仓库。
+#
+# 两条流水线相互独立（不同 runner、不同产物、不同下游仓库），对应 stage
+# 两两合并跑在同一个 stage 里并行执行，互不阻塞。
+# ────────────────────────────────────────────────────────────────────
+
+variables:
+  # x86_64 catkin CI
+  JOB_TMP_DIR: "${CI_PROJECT_DIR}/tmp/${CI_JOB_ID}/artifacts/"
+  CATKIN_WS_INSTALL_CACHE: "/home/carlos/CI/jobs_results/${CI_PIPELINE_ID}/catkin_ws_install"
+  CI_RUNNER_TAG: "kuavo"
+  # aarch64 纯 CMake CI（aarch64 各 job 直接硬编码 TER30R-ubuntu-shell tag，见下）
+  CI_RUNNER_TAG_AARCH64: "TER30R-ubuntu-shell"
+
+.ros_before_script:
+  before_script:
+    - export LD_LIBRARY_PATH="/opt/drake/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
+    - export PATH="/opt/drake/bin${PATH:+:${PATH}}"
+    - export CC="ccache gcc"
+    - export CXX="ccache g++"
+    - ccache --max-size=10G
+    - export PROJECT_VERSION_VAR=$(git describe)
+  tags:
+    - ${CI_RUNNER_TAG}
+
+stages:
+  - setup_and_build
+  - compile
+  - sync
+  - notify
+
+# ───────────────────────────── x86_64 / catkin ─────────────────────────────
+
+setup_env:
+  stage: setup_and_build
+  extends: .ros_before_script
+  tags:
+    - ${CI_RUNNER_TAG}
+  script:
+    - ccache -s
+    - ccache --set-config compiler_check=content
+    - echo "Setup environment..."
+    - cd ci_scripts
+    - sudo chmod +x ci_install_dependencies.bash
+    - ./ci_install_dependencies.bash
+
+compile:
+  stage: compile
+  extends: .ros_before_script
+  tags:
+    - ${CI_RUNNER_TAG}
+  except:
+    - dev
+    - beta
+    - master
+    - develop
+    - /^opensource.*/
+    - /^cmf-ci.*/
+  script:
+    - cd ci_scripts
+    - sudo chmod +x build.sh
+    - ./build.sh
+    - echo "Compiled :) "
+  dependencies:
+    - setup_env
+
+sync_to_lejulab_job:
+  stage: sync
+  extends: .ros_before_script
+  tags:
+    - ${CI_RUNNER_TAG}
+  script:
+    - echo "Sync to lejulab..."
+    - cd $CI_PROJECT_DIR
+    - echo "Setting up SSH for git operations..."
+    - if [ ! -f "/home/gitlab-runner/.ssh/id_rsa" ]; then echo "SSH key not found at /home/gitlab-runner/.ssh/id_rsa"; exit 1; fi
+    - eval $(ssh-agent -s)
+    - ssh-add /home/gitlab-runner/.ssh/id_rsa
+    - export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+    - echo "SSH configured successfully"
+    - chmod +x ./ci_scripts/sync/sync_to_lejulab.sh && ./ci_scripts/sync/sync_to_lejulab.sh $LJ_LEJULAB_PROJECT_ORIGIN $LJ_TEMP_LEJULAB_TARGET_REPO_PATH $CI_COMMIT_BRANCH
+  only:
+    - dev
+    - beta
+    - master
+    - develop
+    - /^opensource.*/
+    - /^cmf-ci.*/
+
+notify:
+  stage: notify
+  tags:
+    - ${CI_RUNNER_TAG}
+  script:
+    - echo "Notify..."
+    - sudo chown -R $USER:$USER .
+    - cd ci_scripts
+    - sudo chmod +x wechat_bot_notify.sh
+    - ./wechat_bot_notify.sh "lejulab_platform =同步=> lejulab 仓库分支 $CI_COMMIT_BRANCH 同步成功， 请访问 https://www.lejuhub.com/highlydynamic/lejulab/-/tree/$CI_COMMIT_BRANCH 查看详情" "$WECHAT_BOT_TOKEN"
+  dependencies:
+    - sync_to_lejulab_job
+  only:
+    - dev
+    - beta
+    - master
+    - develop
+    - /^opensource.*/
+    - /^cmf-ci.*/
+
+# ───────────────────────────── aarch64 / 纯 CMake ─────────────────────────────
+
+build_aarch64:
+  stage: setup_and_build
+  tags:
+    - TER30R-ubuntu-shell
+  script:
+    - bash ci_scripts/aarch64/build.sh
+  artifacts:
+    name: "aarch64-staging-${CI_PIPELINE_IID}"
+    paths:
+      - staging/installed/
+    expire_in: 1 day
+    when: on_success
+  # 所有分支都跑（守住编译门槛）
+
+release_aarch64:
+  stage: sync
+  tags:
+    - TER30R-ubuntu-shell
+  script:
+    - bash ci_scripts/aarch64/release.sh "$LJ_LEJULAB_AARCH64_REPO_URL" "$CI_COMMIT_BRANCH"
+  dependencies:
+    - build_aarch64
+  only:
+    - dev
+    - beta
+    - master
+    - develop
+    - /^opensource.*/
+    - /^cmf-ci.*/
+
+notify_aarch64:
+  stage: notify
+  tags:
+    - TER30R-ubuntu-shell
+  script:
+    - bash ci_scripts/wechat_bot_notify.sh "lejulab_platform =同步=> aarch64 闭源发布分支 $CI_COMMIT_BRANCH 同步成功" "$WECHAT_BOT_TOKEN"
+  dependencies:
+    - release_aarch64
+  only:
+    - dev
+    - beta
+    - master
+    - develop
+    - /^opensource.*/
+    - /^cmf-ci.*/

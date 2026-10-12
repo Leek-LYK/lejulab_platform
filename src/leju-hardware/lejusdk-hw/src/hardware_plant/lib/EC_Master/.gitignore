@@ -1,0 +1,14 @@
+**/build
+**/.vscode
+
+# atemsys 编译内容
+*.cmd
+atemsys.ko
+atemsys.o
+atemsys.mod*
+modules.order
+Module.symvers
+
+# 运行产生的 log 文件
+*.log
+ecmaster_dcm0.*.csv

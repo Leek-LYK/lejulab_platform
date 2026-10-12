@@ -1,0 +1,16 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+set(hardware_plant_INCLUDE_DIRS "@hardware_plant_INCLUDE_DIRS@")
+set(hardware_plant_LIBRARIES "@hardware_plant_LIBRARIES@")
+
+set(hardware_plant_CXX_INCLUDE_DIRS "@hardware_plant_CXX_INCLUDE_DIRS@")
+set(hardware_plant_CXX_LIBRARIES "@hardware_plant_CXX_LIBRARIES@")
+
+find_dependency(Boost REQUIRED COMPONENTS filesystem system)
+find_package(Python3 3.8 EXACT COMPONENTS Interpreter Development NumPy REQUIRED)
+find_dependency(lcm REQUIRED)
+find_dependency(drake REQUIRED)
+find_dependency(kuavo_common REQUIRED)
+include("${CMAKE_CURRENT_LIST_DIR}/hardware_plantTargets.cmake")

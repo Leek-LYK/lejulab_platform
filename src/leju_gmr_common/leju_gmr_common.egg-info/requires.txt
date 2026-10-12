@@ -1,0 +1,9 @@
+numpy>=1.21
+scipy>=1.8
+mujoco==3.11.0
+mink==1.2.0
+qpsolvers[daqp]>=4.0
+cyclonedds==0.10.2
+
+[test]
+pytest>=7

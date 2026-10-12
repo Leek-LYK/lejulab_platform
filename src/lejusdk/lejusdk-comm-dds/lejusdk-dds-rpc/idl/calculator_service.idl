@@ -1,0 +1,31 @@
+/**
+ * @file calculator_service.idl
+ * @brief 计算器服务示例 IDL
+ *
+ * 演示如何定义一个 RPC 服务的请求和响应类型。
+ */
+
+#include "rpc_types.idl"
+
+module example {
+
+    /**
+     * 计算器请求
+     */
+    struct CalculatorRequest {
+        dds_rpc::RequestHeader header;  // 必须包含请求头
+        int32 operand_a;                // 操作数 A
+        int32 operand_b;                // 操作数 B
+        string operation;               // 操作类型: "add", "subtract", "multiply", "divide"
+    };
+
+    /**
+     * 计算器响应
+     */
+    struct CalculatorReply {
+        dds_rpc::ReplyHeader header;    // 必须包含响应头
+        int32 result;                   // 计算结果
+        string error_message;           // 错误信息 (如果有)
+    };
+
+};

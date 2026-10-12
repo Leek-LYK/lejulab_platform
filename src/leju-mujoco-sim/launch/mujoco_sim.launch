@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg="leju-mujoco-sim" type="leju-mujoco-sim" name="leju_mujoco_sim" output="screen"/>
+</launch>
